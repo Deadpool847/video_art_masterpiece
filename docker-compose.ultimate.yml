@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: video-art-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: masterpiece123
+      MONGO_INITDB_DATABASE: video_art_masterpiece
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - video-art-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend.ultimate
+    container_name: video-art-backend
+    restart: always
+    ports:
+      - "8001:8001"
+    volumes:
+      - video_data:/app/backend
+    networks:
+      - video-art-network
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend.ultimate  
+    container_name: video-art-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - video-art-network
+    depends_on:
+      - backend
+
+networks:
+  video-art-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  video_data:

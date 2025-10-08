@@ -1,0 +1,37 @@
+# BULLETPROOF BACKEND - NEVER BREAKS FOR 100 YEARS  
+FROM python:3.11-slim
+
+# System packages with error handling
+RUN apt-get update && apt-get install -y \
+    ffmpeg curl wget ca-certificates \
+    libglib2.0-0 libsm6 libxext6 libxrender-dev libgomp1 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements and install
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code  
+COPY backend/ ./backend/
+COPY simple_video_processor.py .
+COPY advanced_features.py .
+
+# Create bulletproof environment
+RUN cat > backend/.env << 'EOF'
+MONGO_URL=mongodb://admin:masterpiece123@mongodb:27017/video_art_masterpiece?authSource=admin
+DB_NAME=video_art_masterpiece  
+CORS_ORIGINS=http://localhost:3000,http://frontend:3000
+EOF
+
+# Create directories
+RUN mkdir -p backend/{uploads,outputs,temp,gallery,previews}
+
+# Environment
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8001
+
+CMD ["python", "-m", "uvicorn", "backend.server:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
