@@ -133,3 +133,21 @@ backend/gallery/pencil/7565db15-22c3-495c-afa4-af8aea01fafc_pencil_1759726651.mp
 # Environment files
 *.env
 *.env.*
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
+backend/outputs/571f87ef-0f09-4e1a-8c60-12afad33783f_pencil_output.mp4
+backend/outputs/a4af0483-b065-4b83-a345-d4c8f1efd689_vintage_film_output.mp4
+backend/gallery/pencil/571f87ef-0f09-4e1a-8c60-12afad33783f_pencil_1760420480.mp4
+backend/gallery/vintage_film/a4af0483-b065-4b83-a345-d4c8f1efd689_vintage_film_1761122475.mp4
+backend/uploads/571f87ef-0f09-4e1a-8c60-12afad33783f_Playdirty-MadewithClipchamp.mp4
+backend/uploads/1d331fd5-6c8e-495d-99b6-fef56e4d9ae0_Playdirty-MadewithClipchamp.mp4
